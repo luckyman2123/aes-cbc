@@ -472,7 +472,7 @@ void inv_cipher(unsigned char *in, unsigned char *out, unsigned char *w) {
 	}
 }
 
-void array_xor(int len, uint8_t*des, uint8_t*a1, uint8_t*a2)
+void array_xor(int len, uint8_t*des, uint8_t*a1, uint8_t*a2)			// command by Clark :: 相异为 1， 相同为 0 :: 2020-12-08
 {
 	int i;
 	for (i = 0; i < len; i++) {

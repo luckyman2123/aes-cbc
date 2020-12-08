@@ -2,9 +2,9 @@
 
 static uint8_t IV[16] = {0};
 
-static cypher_t* block_padding(cypher_t* origin);
+static cypher_t* block_padding(cypher_t* origin);		// command by clark:: padding: 填充 :: 2020-12-08
 
-cypher_t* block_padding(cypher_t* origin)
+cypher_t* block_padding(cypher_t* origin)				// command by Clark:: 长度为输入长度的16的整数倍 :: 2020-12-08
 {
 	cypher_t* ret;
 	if (origin->len_data == 0){
@@ -44,10 +44,10 @@ cypher_t* aes_cbc_encrypt(uint8_t* key, cypher_t* data_in)
 	uint8_t iv[16] = {0};
 	memcpy(iv, IV, 16);
 	uint8_t temp_out[16] = {0};
-	for (uint8_t index = 0; index < data_in_padding->len_data/16 ; ++index){
+	for (uint8_t index = 0; index < data_in_padding->len_data/16 ; ++index){	// command by Clark :: 进行多轮 :: 2020-12-08
 		array_xor(16, temp_out, data_in_padding->data + (index * 16), iv);		//明文与iv异或
 		_aes128_encryption(key, cypher_out->data + index * 16, temp_out);		//进行块加密得到密文，同时密文是下次加密的iv
-		memcpy(iv, cypher_out->data + index * 16, 16);							//本次的密文是下次加密的iv
+		memcpy(iv, cypher_out->data + index * 16, 16);							//本次的密文是下次加密的iv // command by Clark:: 每个数据加上了16 :: 2020-12-08
 	}
 	free(data_in_padding);
 	return cypher_out;
